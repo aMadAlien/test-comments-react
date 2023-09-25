@@ -1,6 +1,11 @@
+import CommentForm from "../components/comments/CommentForm"
+
 function CommentsPage() {
   return (
-    <div>CommentsPage</div>
+    <div>
+      <CommentForm />
+
+    </div>
   )
 }
 
