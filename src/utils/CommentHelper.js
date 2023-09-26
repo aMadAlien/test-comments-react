@@ -17,3 +17,22 @@ export function insertTag(e, tag, textAreaRef, comment, setComment) {
   setComment(newText);
   textAreaRef.current.focus();
 };
+
+export function findParentElementForNewComment(comments, newComment, replyTo) {
+  return comments.map(item => {
+    if (item.id === replyTo) {
+      item.replies = [...(item.replies || []), newComment];
+    } else {
+      item.replies = findParentElementForNewComment(item.replies || [], newComment);
+    }
+    return item;
+  });
+}
+
+export const saveNewCommentInState = (newComment, replyTo, comments, setComments) => {
+  const commentsToSave = replyTo !== null ?
+    findParentElementForNewComment(comments, newComment)
+    : [newComment, ...comments];
+
+  setComments(commentsToSave);
+}

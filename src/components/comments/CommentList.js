@@ -4,8 +4,7 @@ import axiosInstance from '../../config/axios';
 import CommentItem from './CommentItem';
 import Pagination from '../Pagination';
 
-function CommentList() {
-  const [comments, setComments] = useState([]);
+function CommentList({ comments, setComments }) {
   const [pages, setPages] = useState({
     totalPages: 0,
     currentPage: 1

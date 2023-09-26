@@ -1,9 +1,9 @@
 import { createRef, useState } from 'react';
 import { EditorContainer, ButtonContainer, SubmitButton, Label, TextArea, ErrorMessage } from '../../styles/CommentFormStyles';
 import axiosInstance from '../../config/axios';
-import { validateDataBeforeSubmit, insertTag } from '../../utils/CommentHelper';
+import { validateDataBeforeSubmit, insertTag, saveNewCommentInState } from '../../utils/CommentHelper';
 
-function CommentForm({ replyTo }) {
+function CommentForm({ replyTo = null, comments, setComments }) {
   const [comment, setComment] = useState('');
   const [homePage, setHomePage] = useState('');
   const [error, setError] = useState('');
@@ -27,7 +27,19 @@ function CommentForm({ replyTo }) {
 
     setError('');
     axiosInstance.post('/comments', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
-      .then((res) => { console.log(res) })
+      .then((res) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        const newComment = {
+          home_page: homePage,
+          id: res.data.id,
+          user_id: user?.id,
+          user: { name: user?.name },
+          parent_id: replyTo,
+          text: comment
+        }
+        saveNewCommentInState(newComment, replyTo, comments, setComments);
+      })
       .catch((e) => console.error(e));
   };
 
