@@ -4,10 +4,11 @@ import CommentList from "../components/comments/CommentList"
 
 function CommentsPage() {
   const [comments, setComments] = useState([]);
+  const user = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div>
-      <CommentForm comments={comments} setComments={setComments} />
+      { user && <CommentForm comments={comments} setComments={setComments} /> }
 
       <CommentList comments={comments} setComments={setComments} />
     </div>
