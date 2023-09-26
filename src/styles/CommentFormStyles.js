@@ -27,8 +27,8 @@ export const ButtonContainer = styled.div`
     padding: 8px 12px;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
+    background-color:  #ffff99;
+    color: #000;
     cursor: pointer;
 
     &:last-child {
@@ -42,7 +42,8 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 700;
   margin-bottom: 10px;
   display: block;
 `;
@@ -59,7 +60,7 @@ export const TextArea = styled.textarea`
 `;
 
 export const SubmitButton = styled.button`
-  background-color: #007bff;
+  background-color: #009900;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -72,4 +73,27 @@ export const ErrorMessage = styled.p`
   color: red;
   font-size: 14px;
   margin-top: 5px;
+`;
+
+export const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const StyledCanvasTemplate = styled.div`
+  /* Add styles for the canvas template here */
+  margin-top: 3rem;
+`;
+
+export const StyledInputContainer = styled.div`
+  /* Add styles for the input container here */
+  margin-top: 3rem;
+`;
+
+export const StyledInput = styled.input`
+  /* Add styles for the input element here */
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
 `;
