@@ -14,7 +14,7 @@ function CommentItem({ comment }) {
   return (
     <CommentWrapper>
       <div>
-        <div>{comment.user?.name}</div>
+        <div>{comment.user?.name} {comment.created_at}</div>
         <CommentText dangerouslySetInnerHTML={{ __html: comment.text }} />
 
         {

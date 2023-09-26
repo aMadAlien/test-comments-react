@@ -14,6 +14,7 @@ export const CommentWrapper = styled.div`
 
 export const CommentText = styled.p`
   margin: 0;
+  font-size: 20px;
 `;
 
 export const RepliesWrapper = styled.div`
@@ -32,4 +33,17 @@ export const OpenTextFileButton = styled.button`
   border: none;
   padding: 5px 10px;
   cursor: pointer;
+`;
+
+export const SortButton = styled.button`
+  padding: 8px 12px;
+  margin: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
