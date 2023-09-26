@@ -2,20 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { CommentListWrapper, SortButton } from '../../styles/CommentListStyles';
 import axiosInstance from '../../config/axios';
 import CommentItem from './CommentItem';
+import Pagination from '../Pagination';
 
 function CommentList() {
   const [comments, setComments] = useState([]);
+  const [pages, setPages] = useState({
+    totalPages: 0,
+    currentPage: 1
+  });
   const [sorting, setSorting] = useState({
     username: false,
     email: false,
     date: false
   });
 
-  const getComments = (sortBy = 'created_at') => {
+  const sortComments = (sortBy) => {
+    const sortingOrder = !sorting.sortBy ? '-asc' : '-desc';
+    getComments(1, sortBy + sortingOrder)
     setSorting({ ...sorting, sortBy: !sorting.sortBy });
+  }
 
-    axiosInstance.get('/comments?sort='+sortBy + (sorting.sortBy ? '-asc' : '-desc'))
-      .then((response) => setComments(response.data))
+  const getComments = (page = 1, sortBy = 'created_at-desc') => {
+    page = page ?? pages.currentPage;
+
+    axiosInstance.get(`/comments?page=${page}&sort=${sortBy}`)
+      .then((response) => {
+        setPages({
+          totalPages: response.data.totalPages,
+          currentPage: response.data.currentPage
+        });
+        setComments(response.data.comments)
+      })
       .catch((error) => console.error('Error fetching comments:', error));
   }
 
@@ -25,14 +42,16 @@ function CommentList() {
     <CommentListWrapper>
       <div>
         Sort by:
-        <SortButton onClick={() => getComments('name')}>Username</SortButton>
-        <SortButton onClick={() => getComments('email')}>Email</SortButton>
-        <SortButton onClick={() => getComments('created_at')}>date</SortButton>
+        <SortButton onClick={() => sortComments('name')}>Username</SortButton>
+        <SortButton onClick={() => sortComments('email')}>Email</SortButton>
+        <SortButton onClick={() => sortComments('created_at')}>date</SortButton>
       </div>
 
       {comments.map((comment) => (
         <CommentItem key={comment.id} comment={comment} />
       ))}
+
+      <Pagination currentPage={pages.currentPage} totalPages={pages.totalPages} onPageChange={getComments} />
     </CommentListWrapper>
   );
 }

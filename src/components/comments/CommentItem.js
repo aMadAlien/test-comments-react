@@ -18,7 +18,7 @@ function CommentItem({ comment }) {
         <CommentText dangerouslySetInnerHTML={{ __html: comment.text }} />
 
         {
-          comment.file && comment.file.extension === 'txt'
+          comment.file && (comment.file.extension === 'txt'
           ?
           <Fragment>
             <OpenTextFileButton  onClick={e => setIsModalOpen(true)}>Open Text File</OpenTextFileButton>
@@ -28,7 +28,7 @@ function CommentItem({ comment }) {
               content={comment.file.content} />
           </Fragment>
           :
-          <img with="100px" height="100px" src={comment.file.content} />
+          <img with="100px" height="100px" src={comment.file.content} />)
         }
       </div>
 
